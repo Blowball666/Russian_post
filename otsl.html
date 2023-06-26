@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Почта России - Отслеживание</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Отслеживание</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="otprav.html">Отправления</a></li>
+            <li><a href="dostavka.php">Доставка</a></li>
+            <li><a href="otsl.html">Отслеживание</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Страница отслеживания</h2>
+        <form action="otsl_zap.php" method="post">
+            <input type="number" name="tracking_code" placeholder="Введите код отслеживания">
+            <button type="submit">Отследить</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Почта России. Все права защищены.</p>
+    </footer>
+</body>
+</html>

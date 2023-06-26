@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Почта России - Отправления</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        function calculatePrice() {
+            var departureType = document.getElementById("departureType").value;
+            var weight = document.getElementById("weight").value;
+            var price = 0;
+
+            if (departureType === "1") {
+                price = 100;
+            } else if (departureType === "2") {
+                price = 200;
+            } else if (departureType === "3") {
+                price = 150;
+            } else if (departureType === "4") {
+                price = 400;
+            } else if (departureType === "5") {
+                price = 350;
+            }
+
+            var totalPrice = price * weight;
+
+            document.getElementById("price").value = totalPrice;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Отправления</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="otprav.html">Отправления</a></li>
+            <li><a href="dostavka.php">Доставка</a></li>
+            <li><a href="otsl.html">Отслеживание</a></li>
+        </ul>
+    </nav>
+    <section>
+        <h1>Добавление отправления</h1>
+        <form action="sender.php" method="post" onsubmit="submitForm(event)">
+            <label for="recipient">Код посылки:</label>
+            <input type="text" name="tracking_code" required>
+    
+            <label for="sender">Отправитель:</label>
+            <input type="text" id="sender" name="sender" required>
+    
+            <label for="recipient">Получатель:</label>
+            <input type="text" id="recipient" name="recipient" required>
+    
+            <label for="departureDate">Дата отправления:</label>
+            <input type="date" id="departureDate" name="departureDate" required>
+    
+            <label for="location">Куда отправить:</label>
+            <select id="location" name="location" required>
+                <option value="1">Москва, Россия</option>
+                <option value="2">Санкт-Петербург, Россия</option>
+                <option value="3">Екатеринбург, Россия</option>
+                <option value="4">Новосибирск, Россия</option>
+                <option value="5">Ростов-на-Дону, Россия</option>
+            </select>
+    
+            <label for="departureType">Тип отправления:</label>
+            <select id="departureType" name="departureType" onchange="calculatePrice()" required>
+                <option value="1">Срочная доставка</option>
+                <option value="2">Крупногабаритный груз</option>
+                <option value="3">Документы</option>
+                <option value="4">Посылка</option>
+                <option value="5">Письмо</option>
+            </select>
+    
+            <label for="weight">Вес отправления (в килограммах):</label>
+            <input type="number" id="weight" name="weight" min="0" step="0.1" onchange="calculatePrice()" required>
+    
+            <label for="price">Цена отправления:</label>
+            <input type="text" id="price" name="price" readonly>
+    
+            <button type="submit">Отправить</button>
+    
+            <script>
+            function submitForm(event) {
+                event.preventDefault(); // Предотвращаем перезагрузку страницы
+        
+                var form = event.target;
+                var formData = new FormData(form);
+        
+                fetch(form.action, {
+                    method: form.method,
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "Отправление успешно добавлено.") {
+                        alert(data);
+                        window.location.href = "otprav.html";
+                    } else {
+                        alert(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                });
+            }
+        </script>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2023 Почта России. Все права защищены.</p>
+    </footer>
+</body>
+</html>
